@@ -7,6 +7,8 @@ output: github_document
 
 # Problem 1
 
+This problem focuses on variable types and coercion.
+
 First, create a data frame comprised of:
 
 * A random sample of size 10 from a uniform[0, 5] distribution
@@ -17,38 +19,38 @@ First, create a data frame comprised of:
 ```{r 1create}
 library(tidyverse)
 problem1_df = tibble(
-  vec_numeric = runif(10, min = 0, max = 5),
-  vec_logical = vec_numeric > 2,
-  vec_char = character(length = 10),
-  vec_factor = factor(x = vec_char)
+  sample_numeric = runif(10, min = 0, max = 5),
+  sample_logical = (sample_numeric > 2),
+  sample_char = character(length = 10),
+  sample_factor = factor(x = sample_char)
 )
 ```
 
 Try to take the mean of each variable in the dataframe. 
 
 ```{r 1mean}
-mean(problem1_df$vec_numeric)
-mean(problem1_df$vec_logical)
-mean(problem1_df$vec_char)
-mean(problem1_df$vec_factor)
+mean(problem1_df$sample_numeric)
+mean(problem1_df$sample_logical)
+mean(problem1_df$sample_char)
+mean(problem1_df$sample_factor)
 ```
 
-The **mean** function only works for the *sample* and the *logical vector*, because in the explanation of **mean** function, it is said that if x is not logical (coerced to numeric), numeric (including integer) or complex, NA_real_ is returned, with a warning.
+The **mean** function only works for the *numeric* and the *logical*, because in the explanation of **mean** function, it is said that if x is not logical (coerced to numeric), numeric (including integer) or complex, NA_real_ is returned, with a warning.
 
 In some cases, one can explicitly convert variables from one type to another.
 
 ```{r 1convert1code, eval = FALSE}
-as.numeric(problem1_df$vec_logical)
-as.numeric(problem1_df$vec_char)
-as.numeric(problem1_df$vec_factor)
+as.numeric(problem1_df$sample_logical)
+as.numeric(problem1_df$sample_char)
+as.numeric(problem1_df$sample_factor)
 ```
 
 In this case, what happens?
 
 ```{r 1convert1result, echo = FALSE}
-as.numeric(problem1_df$vec_logical)
-as.numeric(problem1_df$vec_char)
-as.numeric(problem1_df$vec_factor)
+as.numeric(problem1_df$sample_logical)
+as.numeric(problem1_df$sample_char)
+as.numeric(problem1_df$sample_factor)
 ```
 
 
@@ -56,8 +58,38 @@ Next, try to convert the character variable from character to factor to numeric;
 What happens?
 
 ```{r 1convert2}
-as.numeric(as.factor(problem1_df$vec_char))
-as.numeric(as.character(problem1_df$vec_factor))
+as.numeric(as.factor(problem1_df$sample_char))
+as.numeric(as.character(problem1_df$sample_factor))
 ```
 
+# problem2
 
+This problem focuses on plotting and the use of inline R code.
+
+Create a data frame comprised of:
+
+* x: a random sample of size 1000 from a standard Normal distribution
+* y: a random sample of size 1000 from a standard Normal distribution
+* A logical vector indicating whether the x + y > 0
+* A numeric vector created by coercing the above logical vector
+* A factor vector created by coercing the above logical vector
+
+```{r 2create}
+problem2_df = tibble(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  xy_logical = ((x+y) > 0),
+  xy_lognumeric = as.numeric(xy_logical),
+  xy_logfactor = as.factor(xy_logical)
+)
+```
+
+The short description includes:
+
+* the size of the dataset is **`r length(problem2_df)`**
+* the mean of x is **`r mean(problem2_df$x)`** and the median of x is **`r median(problem2_df$x)`**
+* the proportion of cases for which the logical vector is TRUE is **`r sum(problem2_df$xy_lognumeric)/length(problem2_df$xy_logical)`**
+
+Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+
+Export your first scatterplot to your project directory using ggsave.
