@@ -5,26 +5,59 @@ date: "2018/9/15"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Problem 1
+
+First, create a data frame comprised of:
+
+* A random sample of size 10 from a uniform[0, 5] distribution
+* A logical vector indicating whether elements of the sample are greater than 2
+* A (length-10) character vector
+* A (length-10) factor vector
+
+```{r 1create}
+library(tidyverse)
+problem1_df = tibble(
+  vec_numeric = runif(10, min = 0, max = 5),
+  vec_logical = vec_numeric > 2,
+  vec_char = character(length = 10),
+  vec_factor = factor(x = vec_char)
+)
 ```
 
-## R Markdown
+Try to take the mean of each variable in the dataframe. 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r 1mean}
+mean(problem1_df$vec_numeric)
+mean(problem1_df$vec_logical)
+mean(problem1_df$vec_char)
+mean(problem1_df$vec_factor)
 ```
 
-## Including Plots
+The **mean** function only works for the *sample* and the *logical vector*, because in the explanation of **mean** function, it is said that if x is not logical (coerced to numeric), numeric (including integer) or complex, NA_real_ is returned, with a warning.
 
-You can also embed plots, for example:
+In some cases, one can explicitly convert variables from one type to another.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r 1convert1code, eval = FALSE}
+as.numeric(problem1_df$vec_logical)
+as.numeric(problem1_df$vec_char)
+as.numeric(problem1_df$vec_factor)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+In this case, what happens?
+
+```{r 1convert1result, echo = FALSE}
+as.numeric(problem1_df$vec_logical)
+as.numeric(problem1_df$vec_char)
+as.numeric(problem1_df$vec_factor)
+```
+
+
+Next, try to convert the character variable from character to factor to numeric; similarly, convert the factor variable from factor to character to numeric. 
+What happens?
+
+```{r 1convert2}
+as.numeric(as.factor(problem1_df$vec_char))
+as.numeric(as.character(problem1_df$vec_factor))
+```
+
+
