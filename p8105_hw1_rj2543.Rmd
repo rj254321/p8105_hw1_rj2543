@@ -20,9 +20,9 @@ First, create a data frame comprised of:
 library(tidyverse)
 problem1_df = tibble(
   sample_numeric = runif(10, min = 0, max = 5),
-  sample_logical = (sample_numeric > 2),
-  sample_char = character(length = 10),
-  sample_factor = factor(x = sample_char)
+  sample_logical = c(sample_numeric > 2),
+  sample_char = c("a", "random", "sample", "of", "size", "ten", "from", "uniform", "zero", "five"),
+  sample_factor = factor(c("odd", "even", "odd", "even", "even", "odd", "odd", "odd", "even", "even"))
 )
 ```
 
@@ -53,7 +53,6 @@ as.numeric(problem1_df$sample_char)
 as.numeric(problem1_df$sample_factor)
 ```
 
-
 Next, try to convert the character variable from character to factor to numeric; similarly, convert the factor variable from factor to character to numeric. 
 What happens?
 
@@ -66,7 +65,7 @@ as.numeric(as.character(problem1_df$sample_factor))
 
 This problem focuses on plotting and the use of inline R code.
 
-Create a data frame comprised of:
+First, create a data frame comprised of:
 
 * x: a random sample of size 1000 from a standard Normal distribution
 * y: a random sample of size 1000 from a standard Normal distribution
@@ -90,7 +89,7 @@ The short description includes:
 * the mean of x is **`r mean(problem2_df$x)`** and the median of x is **`r median(problem2_df$x)`**
 * the proportion of cases for which the logical vector is TRUE is **`r sum(problem2_df$xy_lognumeric)/length(problem2_df$xy_logical)`**
 
-Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
+Second, make a scatterplot of y vs x; color points using the logical variable. Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
 
 ```{r 2plot}
 ggplot(problem2_df, aes(x = x, y = y, color = xy_logical)) + geom_point()
@@ -98,9 +97,10 @@ ggplot(problem2_df, aes(x = x, y = y, color = xy_lognumeric)) + geom_point()
 ggplot(problem2_df, aes(x = x, y = y, color = xy_logfactor)) + geom_point()
 ```
 
-Export the first scatterplot to the project directory using ggsave.
+Then export the first scatterplot to the project directory using ggsave.
 
 ```{r 2save}
 ggsave('scatterplot of y vs x colored by logical.pdf', plot = ggplot(problem2_df, aes(x = x, y = y, color = xy_logical)) + geom_point())
 ```
 
+That's all.
