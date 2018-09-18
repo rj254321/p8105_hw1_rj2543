@@ -62,7 +62,7 @@ as.numeric(as.factor(problem1_df$sample_char))
 as.numeric(as.character(problem1_df$sample_factor))
 ```
 
-# problem2
+# Problem 2
 
 This problem focuses on plotting and the use of inline R code.
 
@@ -92,4 +92,15 @@ The short description includes:
 
 Make a scatterplot of y vs x; color points using the logical variable (adding color = ... inside of aes in your ggplot code should help). Make a second and third scatterplot that color points using the numeric and factor variables, respectively, and comment on the color scales.
 
-Export your first scatterplot to your project directory using ggsave.
+```{r 2plot}
+ggplot(problem2_df, aes(x = x, y = y, color = xy_logical)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = xy_lognumeric)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = xy_logfactor)) + geom_point()
+```
+
+Export the first scatterplot to the project directory using ggsave.
+
+```{r 2save}
+ggsave('scatterplot of y vs x colored by logical.pdf', plot = ggplot(problem2_df, aes(x = x, y = y, color = xy_logical)) + geom_point())
+```
+
