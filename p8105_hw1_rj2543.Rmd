@@ -5,9 +5,15 @@ date: "2018/9/15"
 output: github_document
 ---
 
+```{r, include = FALSE}
+library(tidyverse)
+Sys.setenv(LANG = "en")
+```
+
+
 # Problem 1
 
-This problem focuses on variable types and coercion.
+## This problem focuses on variable types and coercion.
 
 First, create a data frame comprised of:
 
@@ -17,7 +23,6 @@ First, create a data frame comprised of:
 * A (length-10) factor vector
 
 ```{r 1create}
-library(tidyverse)
 problem1_df = tibble(
   sample_numeric = runif(10, min = 0, max = 5),
   sample_logical = c(sample_numeric > 2),
@@ -63,7 +68,7 @@ as.numeric(as.character(problem1_df$sample_factor))
 
 # Problem 2
 
-This problem focuses on plotting and the use of inline R code.
+## This problem focuses on plotting and the use of inline R code.
 
 First, create a data frame comprised of:
 
@@ -77,7 +82,7 @@ First, create a data frame comprised of:
 problem2_df = tibble(
   x = rnorm(1000),
   y = rnorm(1000),
-  xy_logical = ((x+y) > 0),
+  xy_logical = c((x+y) > 0),
   xy_lognumeric = as.numeric(xy_logical),
   xy_logfactor = as.factor(xy_logical)
 )
@@ -103,4 +108,4 @@ Then export the first scatterplot to the project directory using ggsave.
 ggsave('scatterplot of y vs x colored by logical.pdf', plot = ggplot(problem2_df, aes(x = x, y = y, color = xy_logical)) + geom_point())
 ```
 
-That's all.
+**That's all. Thank you for watching! :)**
