@@ -90,7 +90,7 @@ problem2_df = tibble(
 
 The short description includes:
 
-* the size of the dataset is **`r length(problem2_df)`**
+* the size of the dataset is **`r nrow(problem2_df)` * `r ncol(problem2_df)`**
 * the mean of x is **`r mean(problem2_df$x)`** and the median of x is **`r median(problem2_df$x)`**
 * the proportion of cases for which the logical vector is TRUE is **`r sum(problem2_df$xy_lognumeric)/length(problem2_df$xy_logical)`**
 
